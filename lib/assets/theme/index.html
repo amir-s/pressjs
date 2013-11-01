@@ -1,0 +1,100 @@
+{{
+	var dateFormat = function (d) {
+		var d_names = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+		var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+		var curr_day = d.getDay();
+		var curr_date = d.getDate();
+		var sup = "";
+		if (curr_date == 1 || curr_date == 21 || curr_date ==31) sup = "st";
+		else if (curr_date == 2 || curr_date == 22) sup = "nd";
+		else if (curr_date == 3 || curr_date == 23) sup = "rd";
+		else sup = "th";
+		var curr_month = d.getMonth();
+		var curr_year = d.getFullYear();
+		return d_names[curr_day] + " " + curr_date + "<sup>" + sup + "</sup> " + m_names[curr_month] + " " + curr_year;
+	}
+}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{= blog.pageTitle }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{= $.url('theme/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{= $.url('theme/css/font-awesome.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{= $.url('theme/style.css') }}" rel="stylesheet" media="screen">
+    <link href="{{= $.url('theme/css/hljs.default.css') }}" rel="stylesheet" media="screen">
+
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans|Maven+Pro|Montserrat+Alternates' rel='stylesheet' type='text/css' />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{{= $.url('theme/js/html5shiv.js') }}"></script>
+      <script src="{{= $.url('theme/js/respond.min.js') }}"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+    <div id="header">
+      <h1><a href="#"><span>&nbsp;{{= blog.title }}&nbsp;<span></a></h1>
+      <h6><a href="#"><span>&nbsp;{{= blog.description }}&nbsp;</span></a></h6>
+    </div>
+    <div class="container">
+      {{ posts.forEach(function (post, index) { }}
+
+      <div class="post container">
+        <div class="title">
+          <h2><a href="{{= $.url('posts/' + post.url)}}">{{= post.title}}</a></h2>
+          <div class="socialbuzz">
+            <!-- Twitter -->
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="{{= blog.author.twitter }}">Tweet</a>
+            <!-- Google + -->
+            <g:plusone class="plusone" size="medium"></g:plusone>
+          </div>
+        </div>
+        <div class="post-detail">
+          <p>{{- dateFormat(post.date) }}, Tags: {{ post.tags.forEach(function (tag, index) { }}{{= index==0?'':', '}}<a href="{{= $.url('tags/' + tag) }}">#{{= tag}}</a>{{ }); }}</p>
+        </div>
+        <div class="post-content">{{- post.body }}</div>
+     
+
+      </div>
+
+
+      {{ }); }}
+
+
+      {{
+        var prevPageURL = (page.current-1)>0?(page.current-1):1;
+        var nextPageURL = (page.current+1)>page.total?page.total:(page.current+1);
+        prevPageURL = $.url('page/' + prevPageURL);
+        nextPageURL = $.url('page/' + nextPageURL);
+      }}
+      <div id="pagination" class="container">
+        <ul class="pagination pagination-sm">
+          <li><a href="{{- prevPageURL}}">&laquo;</a></li>
+          {{ for (var i=1;i<=page.total;i++) { }}
+          {{- '<li' + (i==page.current?' class="active"':'') + '><a href="' + $.url('page/' + i) + '">' + i + '</a></li>' }}
+          {{ } }}
+          <li><a href="{{- nextPageURL}}">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Twitter Social -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="http://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <!-- G+ -->
+    <script type="text/javascript">
+    (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    </script>
+  </body>
+</html>

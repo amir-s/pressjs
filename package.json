@@ -1,0 +1,23 @@
+{
+  "name": "pressjs",
+  "version": "0.0.3",
+  "description": "NodeJS static blog generator.",
+  "author": {
+    "name": "Amir Saboury"
+  },
+  "main": "./lib/main",
+  "bin": {
+    "pressjs": "./bin/pressjs"
+  },
+  "dependencies": {
+    "highlight.js": "~7.3.0",
+    "marked": "~0.2.9",
+    "ejs": "~0.8.4",
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.2.2",
+    "commander": "~2.0.0",
+    "connect": "~2.11.0"
+  },
+  "engine": "node",
+  "readmeFilename": "README.md",
+}
