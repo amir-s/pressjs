@@ -20,4 +20,5 @@
   },
   "engine": "node",
   "readmeFilename": "README.md",
+  "repository": "git://github.com/amir-s/pressjs",
 }
