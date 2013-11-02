@@ -1,6 +1,6 @@
 {
   "name": "pressjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "NodeJS static blog generator.",
   "author": {
     "name": "Amir Saboury"
